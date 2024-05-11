@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-import os 
 import numpy as np
 import torchvision
 import torch
 import faiss
-from moco.loader import SpectrogramDatasetInferenceSingle
-from moco.builder import MoCoV3Inference
+from moco.moco import SpectrogramDatasetInferenceSingle
+from moco.moco import MoCoV3Inference
 
 
 # ## Первая задача. Вычисление расстояний между композициями, и внутри одной композиции
