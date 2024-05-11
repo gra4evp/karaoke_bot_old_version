@@ -4,11 +4,11 @@ services:
   bot:
     build:
       context: bot
-      dockerfile: bot/Dockerfile_bot
+      dockerfile: bot/Dockerfile
     # Добавьте любые другие настройки для вашего бота
 
   model:
     build:
       context: bot
-      dockerfile: bot/Dockerfile_model
+      dockerfile: bot/Dockerfile
     # Добавьте любые другие настройки для вашей модели
