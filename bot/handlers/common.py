@@ -62,6 +62,6 @@ def register_handlers(dispatcher: Dispatcher):
 
     dispatcher.register_message_handler(
         send_hello_text,
-        lambda message: message.text not in ['Order a track', 'order a track'],
+        lambda message: message.text not in ['Order a track', 'order a track'] and not message.text.startswith('/'),
         content_types='any'
     )
