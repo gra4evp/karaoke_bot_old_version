@@ -1,3 +1,5 @@
 /venv/
 /.pytest_cache
 /poetry.lock
+/bot/utils/tracks_cache/
+/bot/utils/tracks_wav/
