@@ -5,12 +5,12 @@ from aiogram.dispatcher.filters import Text
 
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils.markdown import hlink
-from karaoke_bot.bot_old_version.unique_links_parse import get_unique_links, load_links_by_user_id
-from karaoke_bot.bot_old_version.sqlalchemy_orm import session, VisitorPerformance, Recommendations
-from karaoke_bot.bot_old_version.create_bot import admin_id
+from bot.unique_links_parse import get_unique_links, load_links_by_user_id
+from bot.sqlalchemy_orm import session, VisitorPerformance, Recommendations
+from bot.create_bot import admin_id
 import random
 import os
-from karaoke_bot.utils.download_youtube_track_2 import YouTubeTrackDownloader
+from bot.utils.download_youtube_track import YouTubeTrackDownloader
 
 print(f"Текущий рабочий каталог: {os.getcwd()}")
 

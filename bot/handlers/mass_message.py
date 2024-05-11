@@ -5,8 +5,8 @@ from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 import time
 import csv
-from karaoke_bot.bot_old_version.sqlalchemy_orm import session, VisitorPerformance
-from karaoke_bot.bot_old_version.create_bot import bot
+from bot.sqlalchemy_orm import session, VisitorPerformance
+from bot.create_bot import bot
 
 
 class FSMMassMessage(StatesGroup):

@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.dispatcher.filters import Text
-from karaoke_bot.bot_old_version.create_bot import bot, admin_id
+from bot.create_bot import bot, admin_id
 
 
 async def start(message: types.Message):
