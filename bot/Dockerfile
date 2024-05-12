@@ -20,8 +20,5 @@ RUN apt-get update && \
 # Копирование кода бота в контейнер
 COPY . .
 
-# Установка зависимостей проекта
-RUN poetry install
-
 # Команда для запуска бота
 CMD ["python", "main.py"]
