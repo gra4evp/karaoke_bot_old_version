@@ -12,7 +12,8 @@ import random
 import os
 from bot.utils.download_youtube_track import YouTubeTrackDownloader
 
-print(f"Текущий рабочий каталог: {os.getcwd()}")
+print(f"Место где написан этот код: {__name__}. Рабочий каталог: {os.getcwd()}")
+print(f"Название файла {__file__}")
 
 
 class FSMOrderTrack(StatesGroup):
@@ -155,5 +156,10 @@ def register_handlers(dispatcher: Dispatcher):
 
 user_ids = {}
 
-unique_links = get_unique_links('id_url_all.csv')
-links_by_user_id = load_links_by_user_id('links_by_user_id.json')
+file_path = os.path.join(os.path.dirname(__file__), 'id_url_all.csv')
+unique_links = get_unique_links(
+    file_name=os.path.join(os.path.dirname(__file__), 'id_url_all.csv')
+)
+links_by_user_id = load_links_by_user_id(
+    file_name=os.path.join(os.path.dirname(__file__), 'links_by_user_id.json')
+)
