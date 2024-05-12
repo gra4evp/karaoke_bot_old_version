@@ -1,7 +1,7 @@
 FROM python:3.10
 
 # Создание рабочей директории
-WORKDIR /app
+WORKDIR /bot
 
 # Установка зависимостей
 RUN pip install aiogram==2.25.1 yt-dlp==2023.3.4 pymysql==1.0.3 sqlalchemy==2.0.10
