@@ -3,12 +3,24 @@ version: '3'
 services:
   bot:
     build:
-      context: bot
+      context: .
       dockerfile: bot/Dockerfile
-    # Добавьте любые другие настройки для вашего бота
+    networks:
+      - bot_model_net
+    volumes:
+      - shared_data:/app/tracks_wav
 
   model:
     build:
-      context: bot
-      dockerfile: bot/Dockerfile
-    # Добавьте любые другие настройки для вашей модели
+      context: .
+      dockerfile: moco/Dockerfile
+    networks:
+      - bot_model_net
+    volumes:
+      - shared_data:/app/tracks_wav
+
+networks:
+  bot_model_net:
+
+volumes:
+  shared_data:

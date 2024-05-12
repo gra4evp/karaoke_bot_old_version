@@ -1,5 +1,11 @@
 FROM python:3.6.10
 
+# Создание рабочей директории
+WORKDIR /app
+
+# Копирование кода модели в контейнер
+COPY . /app
+
 # Установка зависимостей
 RUN pip install torch torchvision librosa numpy
 
@@ -7,10 +13,6 @@ RUN pip install torch torchvision librosa numpy
 RUN apt-get update && \
     apt-get install -y libopenblas-base libomp-dev && \
     pip install faiss-cpu
-
-# Добавление кода модели в контейнер
-COPY model.py /app/
-WORKDIR /app
 
 # Команда для запуска модели
 CMD ["python", "model.py"]
