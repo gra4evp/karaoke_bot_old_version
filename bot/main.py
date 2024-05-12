@@ -1,3 +1,12 @@
+import os
+import sys
+# Получаем абсолютный путь к корневой директории проекта
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Добавляем корневую директорию в путь поиска модулей Python
+sys.path.append(root_dir)
+
+
 from aiogram.utils import executor
 from create_bot import dispatcher
 import handlers
