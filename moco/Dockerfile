@@ -4,7 +4,7 @@ FROM python:3.6.10
 WORKDIR /app
 
 # Копирование кода модели в контейнер
-COPY . /app
+COPY ./moco .
 
 # Установка зависимостей
 RUN pip install torch torchvision librosa numpy
