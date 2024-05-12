@@ -10,14 +10,14 @@ services:
     volumes:
       - shared_data:/app/tracks_wav
 
-  model:
-    build:
-      context: .
-      dockerfile: moco/Dockerfile
-    networks:
-      - bot_model_net
-    volumes:
-      - shared_data:/app/tracks_wav
+#  model:
+#    build:
+#      context: .
+#      dockerfile: moco/Dockerfile
+#    networks:
+#      - bot_model_net
+#    volumes:
+#      - shared_data:/app/tracks_wav
 
 networks:
   bot_model_net:
