@@ -7,6 +7,7 @@ import time
 import csv
 from bot.sqlalchemy_orm import session, VisitorPerformance
 from bot.create_bot import bot
+import os
 
 
 class FSMMassMessage(StatesGroup):
@@ -129,7 +130,7 @@ async def callback_mass_message_skip(callback: types.CallbackQuery, state: FSMCo
 
 async def send_mass_message(sender_id: int, text: str, image_id: str):
 
-    with open('../id_url_all.csv', encoding='u8') as fi:
+    with open(os.path.join(os.path.dirname(__file__), 'id_url_all.csv'), encoding='u8') as fi:
         unique_user_ids = set(int(row['user_id']) for row in csv.DictReader(fi))
 
     user_ids = session.query(VisitorPerformance.user_id.distinct()).all()
