@@ -4,13 +4,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Установка зависимостей
-RUN pip install poetry
-
-# Создание пустого файла pyproject.toml
-RUN poetry init
-
-# Установка зависимостей
-RUN poetry add aiogram@^2.25.1 yt-dlp@^2023.3.4 pymysql@^1.0.3 sqlalchemy@^2.0.10
+RUN pip install aiogram==2.25.1 yt-dlp==2023.3.4 pymysql==1.0.3 sqlalchemy==2.0.10
 
 # Установка ffmpeg и ffprobe
 RUN apt-get update && \
