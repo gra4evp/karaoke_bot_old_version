@@ -1,6 +1,7 @@
 import csv
 import numpy as np
 import random
+import os
 
 
 class SparseSVD:
@@ -99,10 +100,10 @@ def fill_rating_matrix(filename):
             R[user_idx, url_idx] += 1
 
 
-def get_top_user_ratings(user_id, model, top_n=None):
+def get_top_user_ratings(user_idx, model, top_n=None):
     ratings = []
-    for track_id in range(model.R.shape[1]):
-        ratings.append((track_id, round(model.predict(user_id, track_id), 4)))
+    for url_idx in range(model.R.shape[1]):
+        ratings.append((url_idx, round(model.predict(user_idx, url_idx), 4)))
 
     ranked_ratings = sorted(ratings, key=lambda item: -item[1])
     if top_n is None:
@@ -110,8 +111,8 @@ def get_top_user_ratings(user_id, model, top_n=None):
     return ranked_ratings[:top_n]
 
 
-id_url_all_csv = '/app/pgrachev/data/id_url_all.csv'
-visitor_performance_csv = '/app/pgrachev/data/visitor_performance.csv'
+id_url_all_csv = os.path.join(os.path.dirname(__file__), 'id_url_all.csv')
+visitor_performance_csv = os.path.join(os.path.dirname(__file__), 'visitor_performance.csv')
 
 
 user_idx, user_id2idx = 0, {}
