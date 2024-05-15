@@ -1,16 +1,16 @@
+import os
+import random
 from aiogram import types
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.dispatcher.filters import Text
-
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.utils.markdown import hlink
 from bot.unique_links_parse import get_unique_links, load_links_by_user_id
 from bot.sqlalchemy_orm import session, VisitorPerformance, Recommendations
 from bot.create_bot import admin_id
-import random
-import os
 from bot.utils.download_youtube_track import YouTubeTrackDownloader
+from bot.recommendations import urls, model, get_top_user_ratings, user_id2idx
 
 print(f"Место где написан этот код: {__name__}. Рабочий каталог: {os.getcwd()}")
 print(f"Название файла {__file__}")
@@ -57,20 +57,32 @@ async def add_link(message: types.Message, state: FSMContext):
     session.commit()
 
     await message.answer('Success! Sing better than the original, I believe in you 😇')
-    await download_track(message)
-    # await get_recommendation(message)
+    # await download_track(message)
+    await get_recommendation(message)
 
 
 async def get_recommendation(message: types.Message):
     user_id = message.from_user.id
 
-    links = links_by_user_id.get(str(user_id))
-    if links:
-        link = links.pop(random.randint(0, len(links) - 1))
-        type_link = 'user_link'
+    if user_id in user_id2idx:
+        user_idx, num_orders = user_id2idx.get(user_id)
+        ranked_ratings = get_top_user_ratings(user_idx=user_idx, model=model, top_n=10)
+        url_idx, rating = random.choice(ranked_ratings)
+
+        link = urls[url_idx]
+        type_link = 'nnlfm'
     else:
-        link = random.choice(unique_links)
+        link = random.choice(urls)
         type_link = 'random_link'
+
+    # Старый способ
+    # links = links_by_user_id.get(str(user_id))
+    # if links:
+    #     link = links.pop(random.randint(0, len(links) - 1))
+    #     type_link = 'user_link'
+    # else:
+    #     link = random.choice(unique_links)
+    #     type_link = 'random_link'
 
     rec_message = await message.answer(f"{link}\n\nTest recommendation", parse_mode='HTML')
 
