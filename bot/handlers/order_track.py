@@ -64,8 +64,8 @@ async def add_link(message: types.Message, state: FSMContext):
 async def get_recommendation(message: types.Message):
     user_id = message.from_user.id
 
-    if user_id in user_id2idx:
-        user_idx, num_orders = user_id2idx.get(user_id)
+    if str(user_id) in user_id2idx:
+        user_idx, num_orders = user_id2idx.get(str(user_id))
         ranked_ratings = get_top_user_ratings(user_idx=user_idx, model=model, top_n=10)
         url_idx, rating = random.choice(ranked_ratings)
 
@@ -83,7 +83,7 @@ async def get_recommendation(message: types.Message):
     # else:
     #     link = random.choice(unique_links)
     #     type_link = 'random_link'
-
+    print(f'получили link {type_link} {link}')
     rec_message = await message.answer(f"Would you like to sing this track?\n\n{link}", parse_mode='HTML')
 
     keyboard = InlineKeyboardMarkup()
