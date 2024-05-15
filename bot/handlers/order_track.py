@@ -83,7 +83,6 @@ async def get_recommendation(message: types.Message):
     # else:
     #     link = random.choice(unique_links)
     #     type_link = 'random_link'
-    print(f'получили link {type_link} {link}')
     rec_message = await message.answer(f"Would you like to sing this track?\n\n{link}", parse_mode='HTML')
 
     keyboard = InlineKeyboardMarkup()
