@@ -133,3 +133,5 @@ fill_rating_matrix(filename=visitor_performance_csv)
 
 model = NonNegativeLFM(R, num_factors=20, lr=0.01, epochs=10)
 model.fit()
+
+print("Модель обучена!!!")

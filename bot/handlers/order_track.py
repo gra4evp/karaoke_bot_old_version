@@ -84,7 +84,7 @@ async def get_recommendation(message: types.Message):
     #     link = random.choice(unique_links)
     #     type_link = 'random_link'
 
-    rec_message = await message.answer(f"{link}\n\nTest recommendation", parse_mode='HTML')
+    rec_message = await message.answer(f"Would you like to sing this track?\n\n{link}", parse_mode='HTML')
 
     keyboard = InlineKeyboardMarkup()
     keyboard.add(InlineKeyboardButton(text="Order this track", callback_data=f'order_this_track'))

@@ -10,8 +10,8 @@ bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dispatcher = Dispatcher(bot, storage=storage)
 
-# admin_id = 1206756552  # владелец бара
-admin_id = 345705084  # kuks_51
+admin_id = 1206756552  # владелец бара
+# admin_id = 345705084  # kuks_51
 # admin_id = 375571119  # gra4evp
 # admin_id = 134566371  # gleb_kukuruz
 # admin_id = 5774261029  # Rayan - ведущий
