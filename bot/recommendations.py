@@ -5,27 +5,27 @@ import os
 
 
 class SparseSVD:
-    def __init__(self, ratings_matrix, num_factors=10, lr=0.01, epochs=10):
-        self.ratings_matrix = ratings_matrix
+    def __init__(self, rating_matrix, num_factors=10, lr=0.01, epochs=10):
+        self.R = rating_matrix
         self.num_factors = num_factors
         self.lr = lr
 
         self.epochs = epochs
 
-        self.indices = list(zip(*np.where(ratings_matrix != 0)))
+        self.indices = list(zip(*np.where(rating_matrix != 0)))
 
-        num_users, num_items = ratings_matrix.shape
+        num_users, num_items = rating_matrix.shape
         # Инициализация латентных представлений пользователей и предметов
         self.P = np.random.normal(scale=1. / num_factors, size=(num_users, num_factors))
         self.Q = np.random.normal(scale=1. / num_factors, size=(num_items, num_factors))
 
         # Вычисляем средние значения по пользователям и предметам
-        self.user_means = np.mean(ratings_matrix, axis=1)
-        self.item_means = np.mean(ratings_matrix, axis=0)
+        self.user_means = np.mean(rating_matrix, axis=1)
+        self.item_means = np.mean(rating_matrix, axis=0)
 
     def forward(self, u, i):
         # Определяем рейтинг, центрированный по пользователям и предметам
-        centered_rating = self.ratings_matrix[u, i] - self.user_means[u] - self.item_means[i]
+        centered_rating = self.R[u, i] - self.user_means[u] - self.item_means[i]
         error = centered_rating - self.predict(u, i)
         return error
 
@@ -49,8 +49,8 @@ class SparseSVD:
 
 
 class LFM(SparseSVD):
-    def __init__(self, ratings_matrix, num_factors=10, lr=0.01, epochs=10, reg_params=(0.01, 0.01)):
-        super().__init__(ratings_matrix, num_factors=num_factors, lr=lr, epochs=epochs)
+    def __init__(self, rating_matrix, num_factors=10, lr=0.01, epochs=10, reg_params=(0.01, 0.01)):
+        super().__init__(rating_matrix, num_factors=num_factors, lr=lr, epochs=epochs)
         self.reg_p, self.reg_q = reg_params
 
     def backward(self, error, u, i):
