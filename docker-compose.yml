@@ -3,24 +3,38 @@ version: '3'
 services:
   bot:
     build:
-      context: .
-      dockerfile: bot/Dockerfile
+      context: bot
+      dockerfile: Dockerfile
     networks:
-      - bot_model_net
+      - backend
+      - frontend
+    ports:
+      - "5004:5004"
     volumes:
       - shared_data:/app/tracks_wav
+    command: python /app/bot/main.py
 
-#  model:
-#    build:
-#      context: .
-#      dockerfile: moco/Dockerfile
-#    networks:
-#      - bot_model_net
-#    volumes:
-#      - shared_data:/app/tracks_wav
+
+  model:
+    build:
+      context: moco
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    ports:
+      - "ZZZZ:ZZZZ"
+      - "WWWW:WWWW"
+    volumes:
+      - shared_data:/app/tracks_wav
+    command: python /app/moco/app.py
+
 
 networks:
-  bot_model_net:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
 
 volumes:
   shared_data:

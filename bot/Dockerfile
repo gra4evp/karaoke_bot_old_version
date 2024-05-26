@@ -13,6 +13,3 @@ RUN apt-get update && \
 
 # Копирование кода бота в контейнер
 COPY ./bot .
-
-# Команда для запуска бота
-CMD ["python", "main.py"]

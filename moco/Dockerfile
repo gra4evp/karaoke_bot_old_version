@@ -7,12 +7,9 @@ WORKDIR /app
 COPY ./moco .
 
 # Установка зависимостей
-RUN pip install torch torchvision librosa numpy
+RUN pip install torch torchvision librosa numpy Flask
 
 # Установка faiss-cpu (если вам не нужна GPU)
 RUN apt-get update && \
     apt-get install -y libopenblas-base libomp-dev && \
     pip install faiss-cpu
-
-# Команда для запуска модели
-CMD ["python", "model.py"]
