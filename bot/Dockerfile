@@ -5,6 +5,7 @@ WORKDIR /bot
 
 # Установка зависимостей
 RUN pip install aiogram==2.25.1 yt-dlp==2023.3.4 pymysql==1.0.3 sqlalchemy==2.0.10
+RUN pip install numpy
 
 # Установка ffmpeg и ffprobe
 RUN apt-get update && \
