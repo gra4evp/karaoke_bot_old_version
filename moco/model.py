@@ -22,6 +22,7 @@ def search_nearest_vectors(vectors, vector_to_search, k=5):
     D, I = index.search(vector_to_search, k)
     return D, I
 
+
 if __name__ == "__main__":
     metadata = {
         "experiment_path": '/app/pgrachev/moco/experiments/exp10',
