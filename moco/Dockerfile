@@ -17,6 +17,6 @@ RUN pip install librosa
 #RUN pip install torchvision
 
 # Установка faiss-cpu (если вам не нужна GPU)
-RUN apt-get update && \
-    apt-get install -y libopenblas-base libomp-dev && \
-    pip install faiss-cpu
+#RUN apt-get update && \
+#    apt-get install -y libopenblas-base libomp-dev && \
+#    pip install faiss-cpu
