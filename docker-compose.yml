@@ -27,6 +27,8 @@ services:
     volumes:
       - shared_data:/app/tracks_wav
     command: python /app/moco/app.py
+    depends_on:
+      - bot  # указываем зависимость от сервиса bot
 
 
 networks:
