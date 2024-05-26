@@ -12,7 +12,7 @@ services:
       - "5004:5004"  # Порт для взаимодействия с ботом
     volumes:
       - shared_data:/app/tracks_wav
-    command: python /app/bot/main.py
+    command: python bot/main.py
 
 
   model:

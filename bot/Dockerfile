@@ -12,4 +12,4 @@ RUN apt-get update && \
     apt-get clean
 
 # Копирование кода бота в контейнер
-COPY ./bot .
+COPY . .
