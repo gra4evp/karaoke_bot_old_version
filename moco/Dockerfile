@@ -7,7 +7,14 @@ WORKDIR /app
 COPY ./moco .
 
 # Установка зависимостей
-RUN pip install torch torchvision librosa numpy Flask
+RUN pip install numpy
+# Установка зависимостей
+RUN pip install Flask
+# Установка зависимостей
+RUN pip install librosa
+## Установка зависимостей
+#RUN pip install torch
+#RUN pip install torchvision
 
 # Установка faiss-cpu (если вам не нужна GPU)
 RUN apt-get update && \
