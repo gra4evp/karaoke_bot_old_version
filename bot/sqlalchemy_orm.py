@@ -31,7 +31,7 @@ class Recommendations(Base):
 
 
 # подключение к бд
-debug_mode = False
+debug_mode = True
 if debug_mode:
     engine = create_engine('sqlite:///karaoke_old_version_debug.db')
 else:
