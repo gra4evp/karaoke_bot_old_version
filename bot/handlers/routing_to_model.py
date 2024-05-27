@@ -28,7 +28,9 @@ async def check_status(message: types.Message):
     task_id = int(message.get_args())
     async with aiohttp.ClientSession(trust_env=True) as session:
         status = await fetch_status(session, task_id)
-        await message.reply(f"Status for task {task_id}: {status['status']}")
+        await message.answer(f"Ответ от контейнера model: {status}")
+        await message.answer('Hello world!')
+        # await message.reply(f"Status for task {task_id}: {status['status']}")
 
 
 async def get_result(message: types.Message):
