@@ -5,6 +5,7 @@ services:
     build:
       context: bot
       dockerfile: Dockerfile
+    container_name: bot
     networks:
       - backend
       - frontend
@@ -19,6 +20,7 @@ services:
     build:
       context: moco
       dockerfile: Dockerfile
+    container_name: model
     networks:
       - backend
     ports:
