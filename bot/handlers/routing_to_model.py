@@ -3,7 +3,7 @@ from aiogram import types
 from aiogram.dispatcher import Dispatcher
 
 
-FLASK_APP_URL = 'http://model:5002'  # URL Flask-приложения в Docker-сети
+FLASK_APP_URL = 'http://model:5000'  # URL Flask-приложения в Docker-сети
 
 
 async def fetch_status(session, task_id):
