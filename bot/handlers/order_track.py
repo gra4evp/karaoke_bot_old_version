@@ -9,7 +9,6 @@ from aiogram.utils.markdown import hlink
 from bot.unique_links_parse import get_unique_links, load_links_by_user_id
 from bot.sqlalchemy_orm import session, VisitorPerformance, Recommendations
 from bot.create_bot import admin_id
-from bot.utils.download_youtube_track import YouTubeTrackDownloader
 from bot.recommendations import urls, model, get_top_user_ratings, user_id2idx
 
 print(f"Место где написан этот код: {__name__}. Рабочий каталог: {os.getcwd()}")
@@ -57,7 +56,6 @@ async def add_link(message: types.Message, state: FSMContext):
     session.commit()
 
     await message.answer('Success! Sing better than the original, I believe in you 😇')
-    # await download_track(message)
     await get_recommendation(message)
 
 
@@ -93,13 +91,6 @@ async def get_recommendation(message: types.Message):
                                      is_accepted=False, created_at=message.date, updated_at=message.date)
     session.add(recommendation)
     session.commit()
-
-
-async def download_track(message: types.Message):
-    downloader = YouTubeTrackDownloader(url=message.text)
-    filename = downloader.download()
-    print(filename)
-    await message.answer("Ссылка была сохранена")
 
 
 async def callback_order_this_track(callback: types.CallbackQuery):
