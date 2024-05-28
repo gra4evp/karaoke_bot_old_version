@@ -1,9 +1,27 @@
 from flask import Flask, request, jsonify
+import threading
+import queue
+import time
+from downloader.downloader import YouTubeTrackDownloader
+import os
+
 
 app = Flask(__name__)
 
 tasks = {}
 task_counter = 1
+download_queue = queue.Queue()
+
+
+def downloading():
+    downloader = YouTubeTrackDownloader()
+    while True:
+        task_id, url = download_queue.get()
+        tasks[task_id]['status'] = 'downloading'
+        info = downloader.get_info(url=url)
+        # Обработку с Json
+        filename = downloader.download(url=url)
+
 
 
 @app.route('/submit', methods=['POST'])
@@ -34,4 +52,6 @@ def get_result(task_id):
 
 
 if __name__ == '__main__':
+    downloader_thread = threading.Thread(target=downloading, daemon=True)
+    downloader_thread.start()
     app.run(host='0.0.0.0', port=5000)
