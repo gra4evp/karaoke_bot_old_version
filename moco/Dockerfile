@@ -7,12 +7,10 @@ WORKDIR /app
 COPY . .
 
 # Установка зависимостей
+RUN pip install yt-dlp
 RUN pip install numpy
-# Установка зависимостей
 RUN pip install Flask
-# Установка зависимостей
 RUN pip install librosa
-## Установка зависимостей
 #RUN pip install torch
 #RUN pip install torchvision
 
