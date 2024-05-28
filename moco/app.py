@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify
+import os
+import time
 import threading
 import queue
-import time
+from flask import Flask, request, jsonify
 from downloader.downloader import YouTubeTrackDownloader
-import os
-
 
 app = Flask(__name__)
 
@@ -16,12 +15,11 @@ download_queue = queue.Queue()
 def downloading():
     downloader = YouTubeTrackDownloader()
     while True:
-        task_id, url = download_queue.get()
+        task_id, url = download_queue.get(block=True)
         tasks[task_id]['status'] = 'downloading'
         info = downloader.get_info(url=url)
         # Обработку с Json
         filename = downloader.download(url=url)
-
 
 
 @app.route('/submit', methods=['POST'])
