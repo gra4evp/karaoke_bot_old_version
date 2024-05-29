@@ -19,7 +19,7 @@ async def fetch_result(session, task_id):
 async def submit_task(message: types.Message):
     payload = {"user_id": message.from_user.id, "url": message.text}
     async with aiohttp.ClientSession(trust_env=True) as session:
-        async with session.post(f"{FLASK_APP_URL}/submit", data=payload) as response:
+        async with session.post(f"{FLASK_APP_URL}/submit", json=payload) as response:
             data = await response.json()
             task_id = data.get('task_id')
             await message.reply(f"Task submitted with ID: {task_id}")
