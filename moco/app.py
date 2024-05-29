@@ -17,19 +17,32 @@ def downloading():
     while True:
         task_id, url = download_queue.get(block=True)
         tasks[task_id]['status'] = 'downloading'
-        info = downloader.get_info(url=url)
-        # Обработку с Json
-        filename = downloader.download(url=url)
+
+        try:
+            info = downloader.get_info(url=url)
+        except Exception as e:
+            print(f'ВОЗНИКЛА ОШИБКА ПРИ ПОЛУЧЕНИИ ИНФОРМАЦИИ ПО ССЫЛКЕ: {url}')
+            print(e)
+        else:
+            video_id = info.get('video_id')
+            if video_id is not None:
+                filename = f'{video_id}.wav'
+                if filename in os.listdir(downloader.tracks_dir):
+                    filename = downloader.download(url=url)
+                    tasks[task_id]['status'] = 'downloaded'
+            else:
+                tasks[task_id]['status'] = 'downloading_failed'
 
 
 @app.route('/submit', methods=['POST'])
 def submit_task():
+    data = request.json
     global task_counter
     task_id = task_counter
     task_counter += 1
-    tasks[task_id] = {'status': 'submitted'}
-    # Здесь можно добавить логику для отправки задания в модель
-    return jsonify({'task_id': task_id})
+    tasks[task_id] = {'status': 'submitted'}.update(data)
+    download_queue.put(tasks[task_id], block=True)
+    return jsonify(tasks[task_id])
 
 
 @app.route('/status/<int:task_id>', methods=['GET'])

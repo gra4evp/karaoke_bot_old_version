@@ -10,6 +10,7 @@ from bot.unique_links_parse import get_unique_links, load_links_by_user_id
 from bot.sqlalchemy_orm import session, VisitorPerformance, Recommendations
 from bot.create_bot import admin_id
 from bot.recommendations import urls, model, get_top_user_ratings, user_id2idx
+from routing_to_model import submit_task
 
 print(f"Место где написан этот код: {__name__}. Рабочий каталог: {os.getcwd()}")
 print(f"Название файла {__file__}")
@@ -45,17 +46,19 @@ async def add_link(message: types.Message, state: FSMContext):
     await state.finish()
 
     user_id = message.from_user.id
+    url = message.text
 
     if user_id not in user_ids:
         user_ids[user_id] = ([], message.from_user.username)
 
-    user_ids[user_id][0].append(message.text)
-    print(message.text)
-    performance = VisitorPerformance(user_id=user_id, url=message.text, created_at=message.date)
+    user_ids[user_id][0].append(url)
+    print(url)
+    performance = VisitorPerformance(user_id=user_id, url=url, created_at=message.date)
     session.add(performance)
     session.commit()
-
     await message.answer('Success! Sing better than the original, I believe in you 😇')
+
+    await submit_task(message)  # Отправка задачи в контейнер модели
     await get_recommendation(message)
 
 
