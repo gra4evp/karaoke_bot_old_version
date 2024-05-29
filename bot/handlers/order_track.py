@@ -10,7 +10,7 @@ from bot.unique_links_parse import get_unique_links, load_links_by_user_id
 from bot.sqlalchemy_orm import session, VisitorPerformance, Recommendations
 from bot.create_bot import admin_id
 from bot.recommendations import urls, model, get_top_user_ratings, user_id2idx
-from routing_to_model import submit_task
+from .routing_to_model import submit_task
 
 print(f"Место где написан этот код: {__name__}. Рабочий каталог: {os.getcwd()}")
 print(f"Название файла {__file__}")
