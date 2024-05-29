@@ -40,7 +40,8 @@ def submit_task():
     global task_counter
     task_id = task_counter
     task_counter += 1
-    tasks[task_id] = {'status': 'submitted'}.update(data)
+    tasks[task_id] = {'status': 'submitted'}
+    tasks[task_id].update(data)
     download_queue.put(tasks[task_id], block=True)
     return jsonify(tasks[task_id])
 
