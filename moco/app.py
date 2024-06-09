@@ -37,13 +37,14 @@ def downloading():
 @app.route('/submit', methods=['POST'])
 def submit_task():
     data = request.json
-    global task_counter
-    task_id = task_counter
-    task_counter += 1
-    tasks[task_id] = {'status': 'submitted'}
-    tasks[task_id].update(data)
-    download_queue.put(tasks[task_id], block=True)
-    return jsonify(tasks[task_id])
+    if data is not None:
+        global task_counter
+        task_id = task_counter
+        task_counter += 1
+        tasks[task_id] = {**data, 'status': 'submitted'}
+        download_queue.put(tasks[task_id], block=True)
+        return jsonify({'task_id': task_id, **tasks[task_id]})
+    return jsonify({'error': f'Task not found, data is {data}'}), 404
 
 
 @app.route('/status/<int:task_id>', methods=['GET'])
